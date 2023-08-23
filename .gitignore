@@ -1,10 +1,9 @@
-/**/nbproject/
+**/nbproject/
 /nbproject/
-/**/build/
-/.idea
-/**/.idea
-/**/gradle/wrapper/*.jar
-/**/.gradle/
+**/build/
+**/.idea
+**/gradle/wrapper/*.jar
+**/.gradle/
 
 # Compiled class file
 *.class
