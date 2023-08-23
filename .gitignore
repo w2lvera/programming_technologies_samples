@@ -1,3 +1,9 @@
+/**/build/
+/.idea
+/**/.idea
+/**/.gradle/wrapper/*.jar
+
+
 # Compiled class file
 *.class
 
