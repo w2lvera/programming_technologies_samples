@@ -7,6 +7,8 @@ package controller;
 
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 import model.Model;
 import model.Point;
@@ -36,21 +38,22 @@ public class Controller {
         return new Point(point2D.getX(), point2D.getY());
     }
 
-    public Shape createShape(Point p){
-        return model.createShape(p);
+    public void createShape(Point p){
+         model.createShape(p);
     }
-    public Shape stretchShape(Point p){
-        return model.stretchShape(p);
+    public void stretchShape(Point p){
+         model.stretchShape(p);
     }
 
-    public java.awt.Shape translate(){
-        Rectangle2D r2d = new Rectangle2D.Double();
-        Shape shape = model.getCurrentShape();
-        r2d.setFrameFromDiagonal(shape.getPointOne().getX(),
-                shape.getPointOne().getY(),
-                shape.getPointTwo().getX(),
-                shape.getPointTwo().getY());
-        return r2d;
+    public Collection<java.awt.Shape> translate(){
+        return model.getShapes().stream().map(shape-> {
+            Rectangle2D.Double rect = new Rectangle2D.Double();
+            rect.setFrameFromDiagonal(shape.getPointOne().getX(),
+                    shape.getPointOne().getY(),
+                    shape.getPointTwo().getX(),
+                    shape.getPointTwo().getY());
+            return rect;
+        }).collect(Collectors.toList());
     }
 
     public static void main(String[] args) {

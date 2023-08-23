@@ -5,29 +5,33 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  *
  * @author Wera
  */
 public class Model {
 
-    Shape currentShape;
+    private Shape currentShape;
+    private Collection<Shape> shapes;
 
     public Model(Shape s) {
         this.currentShape = s;
+        this.shapes = new ArrayList<>();
     }
 
-    public Shape getCurrentShape() {
-        return currentShape;
-    }
+   public Collection<Shape> getShapes(){
+        return shapes;
+   }
 
-    public Shape createShape(Point one){
+    public void createShape(Point one){
         currentShape = new Rectangle(one,one);
-        return currentShape;
+        shapes.add(currentShape);
     }
 
-    public Shape stretchShape(Point two){
+    public void stretchShape(Point two){
         currentShape.setPointTwo(two);
-        return currentShape;
     }
 }

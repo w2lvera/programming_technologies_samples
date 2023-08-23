@@ -11,7 +11,7 @@ public class ControllerTest {
         Controller c = new Controller();
         Model model = c.model;
         Assertions.assertNotNull(model);
-        Assertions.assertNotNull(model.getCurrentShape());
+        Assertions.assertNotNull(model.getShapes());
     }
 
     @Test
