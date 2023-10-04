@@ -47,4 +47,8 @@ public abstract class Shape {
         this.color = color;
     }
 
+    public abstract Shape returnClone();
+
+    public abstract java.awt.Shape translateForView();
+
 }
