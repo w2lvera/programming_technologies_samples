@@ -35,8 +35,8 @@ public class Controller {
         actionDraw.stretchShape(point);
     }
 
-    public void draw(Graphics2D g2) {
-        model.getCurrentShape().draw(g2);
+    public MyShape translate() {
+        return model.getCurrentShape();
     }
 
 
