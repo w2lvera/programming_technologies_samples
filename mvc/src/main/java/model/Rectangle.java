@@ -10,4 +10,14 @@ public class Rectangle extends Shape{
         super(pointOne, pointTwo, color);
     }
 
+    @Override
+    public Shape returnClone() {
+        return null;
+    }
+
+    @Override
+    public java.awt.Shape translateForView() {
+        return null;
+    }
+
 }
