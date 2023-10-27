@@ -4,28 +4,28 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class Model {
-    MyShape currentShape;
-    Collection<MyShape> list;
+    MyShapeDecorator currentShape;
+    Collection<MyShapeDecorator> list;
 
     public Model() {
        list = new ArrayList<>();
     }
 
-    public void setCurrentShape(MyShape currentShape) {
+    public void setCurrentShape(MyShapeDecorator currentShape) {
         this.currentShape = currentShape;
     }
 
-    public MyShape createCurrentShape() {
-        currentShape = new MyShape();
+    public void createCurrentShape(MyShapeDecorator sD) {
+        currentShape = sD;
         list.add(currentShape);
+
+    }
+
+    public MyShapeDecorator getCurrentShape() {
         return currentShape;
     }
 
-    public MyShape getCurrentShape() {
-        return currentShape;
-    }
-
-    public Collection<MyShape> getList() {
+    public Collection<MyShapeDecorator> getList() {
         return list;
     }
 }

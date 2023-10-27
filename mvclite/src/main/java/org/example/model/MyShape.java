@@ -6,7 +6,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.RectangularShape;
 
-public class MyShape {
+public class MyShape implements MyShapeDecorator{
     Color color;
     RectangularShape shape;
     FillBehavior fillBehavior;
@@ -26,7 +26,11 @@ public class MyShape {
         shape.setFrameFromDiagonal(p[0],p[1]);
     }
     public void draw(Graphics2D g){
+        Paint paint = g.getPaint();
+        g.setColor(color);
         fillBehavior.draw(g,shape);
+        g.setPaint(paint);
+
     }
     public Color getColor() {
         return color;
@@ -40,6 +44,11 @@ public class MyShape {
         return shape;
     }
 
+    @Override
+    public void setParameter(int par) {
+
+    }
+
     public void setShape(RectangularShape shape) {
         this.shape = shape;
     }
@@ -50,5 +59,13 @@ public class MyShape {
 
     public void setFillBehavior(FillBehavior fillBehavior) {
         this.fillBehavior = fillBehavior;
+    }
+    public MyShape clone(){
+
+        MyShape s = new MyShape();
+        s.setColor(this.color);
+        s.fillBehavior = this.fillBehavior;
+        s.setShape((RectangularShape)this.shape.clone());
+        return s;
     }
 }

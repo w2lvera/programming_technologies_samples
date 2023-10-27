@@ -3,6 +3,7 @@ package org.example.view;
 import javax.swing.*;
 import org.example.controller.*;
 import org.example.model.MyShape;
+import org.example.model.MyShapeDecorator;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -34,7 +35,7 @@ public class MyPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        MyShape shape =controller.translate();
-        shape.draw(g2);
+        for(MyShapeDecorator sD  : controller.translate())
+               sD.draw(g2);
     }
 }

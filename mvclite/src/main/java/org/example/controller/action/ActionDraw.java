@@ -1,13 +1,17 @@
 package org.example.controller.action;
 
+import org.example.model.Border;
 import org.example.model.Model;
 import org.example.model.MyShape;
+import org.example.model.MyShapeDecorator;
 
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 public class ActionDraw {
-    MyShape shape;
+    MyShapeDecorator sampleShape;
+    MyShapeDecorator shape;
     Point2D[] p;
     Model model;
 
@@ -16,13 +20,13 @@ public class ActionDraw {
     }
 
     public ActionDraw(  Model model) {
-        shape = new MyShape();
+        shape = new Border(new MyShape());
         this.p = new Point2D[2];
         this.model = model;
     }
 
-    public void setShape(MyShape shape) {
-        this.shape = shape;
+    public void setSampleShape(MyShapeDecorator shape) {
+        this.sampleShape = shape;
     }
     public void stretchShape(Point point){
         p[1] =(Point2D) point;
@@ -30,7 +34,9 @@ public class ActionDraw {
     }
     public void createShape(Point point){
         p[0] = (Point2D)point;
-        shape = model.createCurrentShape();
+        shape = sampleShape.clone();
+        shape.setParameter(20);
+        model.createCurrentShape(shape);
     }
 
 
