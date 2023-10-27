@@ -15,10 +15,9 @@ public class Model {
         this.currentShape = currentShape;
     }
 
-    public MyShape createCurrentShape() {
-        currentShape = new MyShape();
+    public void createCurrentShape(MyShape shape) {
+        currentShape = shape;
         list.add(currentShape);
-        return currentShape;
     }
 
     public MyShape getCurrentShape() {

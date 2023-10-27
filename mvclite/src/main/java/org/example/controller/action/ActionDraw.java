@@ -7,9 +7,14 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 
 public class ActionDraw {
+    MyShape sampleShape;
     MyShape shape;
     Point2D[] p;
     Model model;
+
+    public void setSampleShape(MyShape sampleShape) {
+        this.sampleShape = sampleShape;
+    }
 
     public ActionDraw() {
         p = new Point2D[2];
@@ -30,7 +35,8 @@ public class ActionDraw {
     }
     public void createShape(Point point){
         p[0] = (Point2D)point;
-        shape = model.createCurrentShape();
+        shape = sampleShape.clone();
+        model.createCurrentShape(shape);
     }
 
 

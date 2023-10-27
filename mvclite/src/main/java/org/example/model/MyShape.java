@@ -26,7 +26,10 @@ public class MyShape {
         shape.setFrameFromDiagonal(p[0],p[1]);
     }
     public void draw(Graphics2D g){
+        Paint paint = g.getPaint();
+        g.setColor(color);
         fillBehavior.draw(g,shape);
+        g.setPaint(paint);
     }
     public Color getColor() {
         return color;
@@ -50,5 +53,12 @@ public class MyShape {
 
     public void setFillBehavior(FillBehavior fillBehavior) {
         this.fillBehavior = fillBehavior;
+    }
+    public MyShape clone() {
+        MyShape s = new MyShape();
+        s.setColor(this.color);
+        s.fillBehavior = this.fillBehavior;
+        s.setShape((RectangularShape) this.shape.clone());
+        return s;
     }
 }
