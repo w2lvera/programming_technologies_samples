@@ -2,6 +2,7 @@ package org.example.controller;
 
 //import org.example.controller.action.ActionDraw;
 import org.example.controller.action.ActionDraw;
+import org.example.controller.action.ActionInterface;
 import org.example.model.Model;
 import org.example.model.MyShape;
 import org.example.view.MyFrame;
@@ -17,23 +18,28 @@ public class Controller {
     Model model;
     MyPanel panel;
     MyFrame frame;
-    ActionDraw actionDraw;
+    ActionInterface actionInterface;
 
     public Controller() {
         model = new Model();
         model.setCurrentShape(new MyShape());
         panel = new MyPanel(this);
         frame = new MyFrame(panel);
-        actionDraw = new ActionDraw(model);
-        actionDraw.setSampleShape(new MyShape(Color.BLUE, new Ellipse2D.Double()));
+        actionInterface = new ActionDraw(model);
+        frame.setController(this);
+    }
+
+    public void setActionInterface(ActionInterface actionInterface) {
+        this.actionInterface = actionInterface;
+        actionInterface.setModel(model);
     }
 
     public void mousePressed(Point point) {
-        actionDraw.createShape(point);
+        actionInterface.mousePressed(point);
     }
 
     public void mouseDragget(Point point) {
-        actionDraw.stretchShape(point);
+        actionInterface.mouseDragget(point);
     }
 
     public Collection<MyShape> translate() {
