@@ -1,3 +1,5 @@
+package com.strategy.cat;
+
 public class CatEnum {
     SpeakEnum se = SpeakEnum.TALKING;
 

@@ -22,6 +22,13 @@ public class MyShape {
         shape = new Rectangle2D.Double();
         this.fillBehavior = FillBehavior.NOFILL;
     }
+
+    public MyShape(Color blue, Rectangle2D.Double aDouble, FillBehavior fillBehavior) {
+        color = Color.BLACK;
+        shape = new Rectangle2D.Double();
+        this.fillBehavior = fillBehavior;
+    }
+
     public void setFrame(Point2D [] p){
         shape.setFrameFromDiagonal(p[0],p[1]);
     }

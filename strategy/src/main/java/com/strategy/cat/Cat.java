@@ -1,3 +1,5 @@
+package com.strategy.cat;
+
 public class Cat {
 
     SpeakBehavior speakBehavior;

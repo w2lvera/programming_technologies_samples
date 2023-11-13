@@ -1,3 +1,5 @@
+package com.strategy.cat;
+
 public class NoSpeak implements SpeakBehavior {
     @Override
     public void speak() {

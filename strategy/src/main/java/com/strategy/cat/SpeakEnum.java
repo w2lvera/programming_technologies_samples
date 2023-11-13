@@ -1,3 +1,5 @@
+package com.strategy.cat;
+
 public enum SpeakEnum {
     TALKING{
         @Override
