@@ -7,8 +7,10 @@ import org.example.model.MyShape;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Observable;
+import java.util.Observer;
 
-public class MyPanel extends JPanel {
+public class MyPanel extends JPanel implements Observer {
     Controller controller;
 
     public MyPanel(Controller controller) {
@@ -36,5 +38,10 @@ public class MyPanel extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         for(MyShape shape:controller.translate())
         shape.draw(g2);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        repaint();
     }
 }

@@ -6,8 +6,10 @@ import org.example.model.MyShape;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.Observable;
 
-public class ActionDraw implements ActionInterface{
+public class ActionDraw extends  ActionInterface{
     MyShape sampleShape;
     MyShape shape;
     Point2D[] p;
@@ -15,6 +17,34 @@ public class ActionDraw implements ActionInterface{
 
     public void setSampleShape(MyShape sampleShape) {
         this.sampleShape = sampleShape;
+    }
+    void deleteShape(){
+        ArrayList<MyShape> list = (ArrayList<MyShape>) model.getList();
+        shape = list.remove(list.size() - 1);
+        setChanged();
+        notifyObservers();
+    }
+    @Override
+    public void execute() {
+        model.createCurrentShape(shape);
+        setChanged();
+        notifyObservers();
+    }
+
+    @Override
+    public void unexecute() {
+        deleteShape();
+        setChanged();
+        notifyObservers();
+    }
+
+    @Override
+    public ActionInterface myclone() {
+        ActionDraw ad  = new ActionDraw(model);
+        ad.setSampleShape(sampleShape);   //.clone());
+        ad.shape = this.shape;//.clone();
+        ad.p = this.p;
+        return ad;
     }
 
     public void setModel(Model model) {

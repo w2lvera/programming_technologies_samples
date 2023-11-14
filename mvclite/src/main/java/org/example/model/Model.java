@@ -2,8 +2,9 @@ package org.example.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Observable;
 
-public class Model {
+public class Model  {
     MyShape currentShape;
     Collection<MyShape> list;
 
@@ -18,6 +19,7 @@ public class Model {
     public void createCurrentShape(MyShape shape) {
         currentShape = shape;
         list.add(currentShape);
+
     }
 
     public MyShape getCurrentShape() {
@@ -27,4 +29,7 @@ public class Model {
     public Collection<MyShape> getList() {
         return list;
     }
+
+
+
 }

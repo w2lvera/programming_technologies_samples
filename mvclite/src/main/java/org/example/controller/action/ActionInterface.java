@@ -4,10 +4,14 @@ import org.example.model.Model;
 import org.example.model.MyShape;
 
 import java.awt.*;
+import java.util.Observable;
 
-public interface ActionInterface {
-    void mousePressed(Point point);
-    void mouseDragget(Point point);
-    void setModel(Model m);
-    void setSampleShape(MyShape myShape);
+public abstract class ActionInterface extends Observable {
+    public abstract void mousePressed(Point point);
+    public   abstract void mouseDragget(Point point);
+    public abstract void setModel(Model m);
+    public abstract void setSampleShape(MyShape myShape);
+    public abstract void execute();
+    public abstract void unexecute();
+    public abstract ActionInterface myclone();
 }

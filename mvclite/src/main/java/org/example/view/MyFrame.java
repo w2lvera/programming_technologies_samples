@@ -5,6 +5,7 @@ import org.example.controller.action.ActionDraw;
 import org.example.controller.action.ActionMove;
 import org.example.controller.state.State;
 import org.example.model.FillBehavior;
+import org.example.model.undomachine.UndoMachine;
 import org.example.view.menu.*;
 
 import javax.swing.*;
@@ -16,9 +17,11 @@ import java.util.ArrayList;
 public class MyFrame extends JFrame {
     MyPanel panel;
     State state;
-    public MyFrame(MyPanel panel,State state) {
+    UndoMachine undoMachine;
+    public MyFrame(MyPanel panel,State state,UndoMachine undoMachine) {
         /////////////////////////////// menu /////////////////////
         this.state = state;
+        this.undoMachine = undoMachine;
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         ArrayList<Action> menuItems = new ArrayList<>();
@@ -26,29 +29,31 @@ public class MyFrame extends JFrame {
 //                new OpenFile(state)));
 //        menuItems.add(new SwitchEntity("создать файл", new ImageIcon("rectangle.gif"),
 //                new SaveFile(state)));
-        menuItems.add(new SwitchState("прямоугольник", new ImageIcon("rectangle.gif"),
+        menuItems.add(new SwitchState("прямоугольник", new ImageIcon("images/rectangle.gif"),
                 new SwitchShape(new Rectangle2D.Double(),state)));
-        menuItems.add(new SwitchState("овал", new ImageIcon("ellipse.gif"),
+        menuItems.add(new SwitchState("овал", new ImageIcon("images/ellipse.gif"),
                 new SwitchShape(new Ellipse2D.Double(),state)));
-        menuItems.add(new SwitchState("незалитый", new ImageIcon("nofill.gif"),
+        menuItems.add(new SwitchState("незалитый", new ImageIcon("images/nofill.gif"),
                 new SwitchFill(FillBehavior.NOFILL,state)));
-        menuItems.add(new SwitchState("залитый", new ImageIcon("fill.gif"),
+        menuItems.add(new SwitchState("залитый", new ImageIcon("images/fill.gif"),
                 new SwitchFill( FillBehavior.FILL,state)));
-        menuItems.add(new SwitchState("рисовать", new ImageIcon("draw.gif"),
+        menuItems.add(new SwitchState("рисовать", new ImageIcon("images/draw.gif"),
                 new SwitchAction( new ActionDraw(),state)));
-        menuItems.add(new SwitchState("двигать", new ImageIcon("move.gif"),
+        menuItems.add(new SwitchState("двигать", new ImageIcon("images/move.gif"),
                 new SwitchAction(new ActionMove(),state)));
-//        menuItems.add(new SwitchUndo("undo", new ImageIcon("undo.gif"), undoMachine));
-//        menuItems.add(new SwitchRedo("redo", new ImageIcon("redo.gif"), undoMachine));
-        menuItems.add(new SwitchState("выбор цвета", new ImageIcon("colors.gif"),
+        menuItems.add(new SwitchUndo("undo", new ImageIcon("images/undo.gif"), undoMachine));
+        menuItems.add(new SwitchRedo("redo", new ImageIcon("images/redo.gif"), undoMachine));
+        menuItems.add(new SwitchState("выбор цвета", new ImageIcon("images/colors.gif"),
                 new SwitchColor(state)));
-
+        undoMachine.addObserver((SwitchUndo)menuItems.get(menuItems.size()-3));
+        undoMachine.addObserver((SwitchRedo)menuItems.get(menuItems.size()-2));
+        undoMachine.notifyMenu();
         ArrayList<JMenu> menus = new ArrayList<>();
         // menus.add(new JMenu("Файл"));
         menus.add(new JMenu("Фигура"));
         menus.add(new JMenu("Заливка"));
         menus.add(new JMenu("Действие"));
-        // menus.add(new JMenu("Undo/redo"));
+        menus.add(new JMenu("Undo/redo"));
         menus.add(new JMenu("Цвет"));
         int i = 0;
         int k = menuItems.size()-2;
@@ -74,6 +79,8 @@ public class MyFrame extends JFrame {
         ((JButton)toolBar.getComponent(4)).setToolTipText("draw");
         ((JButton)toolBar.getComponent(5)).setToolTipText("move");
         ((JButton)toolBar.getComponent(6)).setToolTipText("color");
+        ((JButton)toolBar.getComponent(7)).setToolTipText("undo");
+        ((JButton)toolBar.getComponent(8)).setToolTipText("redo");
         add(toolBar, BorderLayout.NORTH);
 //////////////////////////////////////////////// end menu /////////////////////////////
 

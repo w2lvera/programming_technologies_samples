@@ -5,10 +5,14 @@ import org.example.model.MyShape;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Observable;
 
-public class ActionMove implements ActionInterface{
+public class ActionMove extends ActionInterface{
     MyShape shape;
+    MyShape shapeNew;
+    MyShape shapeOld;
     Point2D[] p;
     Model model;
 
@@ -32,6 +36,8 @@ public class ActionMove implements ActionInterface{
         for (MyShape x:list) {
             if(x.getShape().contains(p1)) shape = x;
         }
+        shapeOld = shape.clone();
+        shapeNew=shape;
     }
 
     @Override
@@ -60,6 +66,36 @@ public class ActionMove implements ActionInterface{
 
     @Override
     public void setSampleShape(MyShape myShape) {
+
+    }
+    void changeShape(MyShape shape,MyShape shape1){
+        ArrayList<MyShape> list = (ArrayList<MyShape>) model.getList();
+        int index = list.indexOf(shape);
+        list.remove(index);
+        list.add(index,shape1);
+        setChanged();
+        notifyObservers();
+    }
+    @Override
+    public void execute() {
+        changeShape(shapeOld,shapeNew);
+
+    }
+
+    @Override
+    public void unexecute() {
+        changeShape(shapeNew,shapeOld);
+
+    }
+
+    @Override
+    public ActionInterface myclone() {
+            ActionMove ad  = new ActionMove(model);
+            ad.shape = this.shape;//.clone();
+            ad.shapeNew = this.shapeNew;//.clone();
+            ad.shapeOld = this.shapeOld;
+            ad.p = this.p;
+            return ad;
 
     }
 }
